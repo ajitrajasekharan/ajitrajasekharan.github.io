@@ -2,7 +2,7 @@
 
 _For select supervised tasks with SSL models satisfying certain properties_
 
-<img src="1.png" width="600">
+<img src="http://ajitrajasekharan.github.io/images/1.png" width="600">
 
 _Figure 1. Named entity recognition (NER) is solved in this post with self-supervised learning (SSL) alone avoiding supervised learning. The approach described here addresses the challenges facing any NER model in real world applications. A supervised model in particular requires sufficient labeled sentences to address the cases illustrated in this figure : - (a) terms whose entity types change based on sentence context (b) sentences with very little context to determine entity type (c) terms whose casing offers cue to the entity type (d) entity type of complete or proper subsets of phrase spans (e) sentences where multiple entity types are possible in a sentence position and only the word in that position offers clue to the entity type (f) a single term that has different meanings in different contexts (g) detecting numerical elements and units (h) recognizing entity types spanning different domains, that need to be recognized for a use case(e.g. biomedical use of detecting biomedical terms as well as patient identities/health information). Image by Author_
 
