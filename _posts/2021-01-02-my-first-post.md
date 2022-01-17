@@ -268,19 +268,19 @@ The results below demonstrate the ensemble performance is not only robust to bot
 
 <img src="http://ajitrajasekharan.github.io/images/8.png" width="600">
 
-_**Figure 8** Image by Author_
+_**Figure 8** Model predictions for the adversarial examples remains constant. Examples from [paper](https://arxiv.org/pdf/2109.05620.pdf) Image by Author_
 
 Also, unlike supervised models where the only insight we can get into what the model is doing is limited largely to the probability distribution over entity types, we can clearly trace how the probability distribution was arrived at with the approach described here. This is one of the key benefits of this approach  - the output is made transparent by the use of interpretable entity vectors. For instance, in the example sentence above, the model predictions constituting the phrase structure and sentence structure cues are shown. They remain almost the same across all three sentences, clearly demonstrating the predictions are invariant across the three sentences. 
 
 <img src="http://ajitrajasekharan.github.io/images/9.png" width="600">
 
-_**Figure 9** Image by Author_
+_**Figure 9** Model entity vectors for the adversarial examples remains constant. Examples from [paper](https://arxiv.org/pdf/2109.05620.pdf)  Image by Author_
 
 We could expand the adversarial input beyond the two attacks described in the paper to see if a model output labels a phrase correctly if the phrase is expanded. For instance, in the example of "I thank my Beijing friends…", we could check if the model prediction switches to _Person_ when we ask it to label the phrase "I thank my Beijing friends…". The ensemble approach makes the right prediction for all three sentences as shown below.
 
 <img src="http://ajitrajasekharan.github.io/images/10.png" width="600">
 
-_**Figure 10** Image by Author_
+_**Figure 10** Model predictions for the expanded adversarial examples remains constant. These are expanded examples from the ones in the [paper](https://arxiv.org/pdf/2109.05620.pdf) .   Image by Author_
 
 _As an aside, the context level words for constructing the context level attack are chosen from the model predictions for a position - the very same approach used to construct the sentence structure cue. So it is perhaps no surprise that this approach is resilient to such changes in sentence structure._
 
