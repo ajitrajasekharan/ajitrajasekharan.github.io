@@ -7,7 +7,7 @@ _For select supervised tasks with SSL models satisfying certain properties_
 
 _**Figure 1.** Named entity recognition (NER) is solved in this post with self-supervised learning (SSL) alone avoiding supervised learning. The approach described here addresses the challenges facing any NER model in real world applications. A supervised model in particular requires sufficient labeled sentences to address the cases illustrated in this figure : - (a) terms whose entity types change based on sentence context (b) sentences with very little context to determine entity type (c) terms whose casing offers cue to the entity type (d) entity type of complete or proper subsets of phrase spans (e) sentences where multiple entity types are possible in a sentence position and only the word in that position offers clue to the entity type (f) a single term that has different meanings in different contexts (g) detecting numerical elements and units (h) recognizing entity types spanning different domains, that need to be recognized for a use case(e.g. biomedical use of detecting biomedical terms as well as patient identities/health information). Image by Author_
 
-#  **TL;DR**
+##  **TL;DR**
 
 Self-supervised learning (SSL) is increasingly used to solve language and [vision tasks](https://arxiv.org/pdf/2104.14294.pdf) that are traditionally solved with supervised learning.
 
@@ -48,7 +48,7 @@ The performance  was tested on 11 datasets. It performed better than current sta
 
 _Code for this approach is available [here on Github](https://github.com/ajitrajasekharan/unsupervised_NER)_
 
-# An underlying challenge for any NER model 
+## An underlying challenge for any NER model 
 
 The state of art performance numbers of supervised models on NER benchmarks may suggest NER is a solved task. NER performance in real world applications reveals a different view. Some of the challenges facing NER models in real world applications are illustrated in Figure 1. Among all those, there is one challenge which even humans could potentially struggle with, and has a direct bearing on model performance. Models struggle with this challenge, regardless of being supervised or unsupervised/self-supervised. This challenge becomes apparent to us when we have to predict the entity type in a domain we are not experienced in - e.g. legal language involving legal phrases. The challenge is described below.
 
@@ -107,7 +107,7 @@ Barring minor differences, in spirit, these two adversarial attacks examine mode
 
 The SSL based approach described here offers a solution to this challenge that is both robust and interpretable.
 
-# Gist of the approach
+## Gist of the approach
 
 A BERT model when trained self-supervised with masked language model (MLM) and next sentence prediction objectives, yields (1) learned vocabulary vectors and (2) a model.
 
@@ -128,9 +128,9 @@ _**Figure 3.** Gist of this approach - described in the bullet points below.
 
 In the tested biomedical/PHI entity detection use case, two pretrained BERT models were used. One was a cased model pretrained from scratch on Pubmed, Clinical trials, and Bookcorpus subest, with a custom vocabulary rich with biomedical entity types like Drugs, Diseases and Genes. The other was Google's original BERT-base-cased model whose vocabulary is rich in Person, Location, and Organization. The models were used in an ensemble mode as described below. 
 
-# Implementation details
+## Implementation details
 
-## Step 1. Choice of pretrained model(s)
+### Step 1. Choice of pretrained model(s)
 
 The choice of pretrained model or models is driven by 
 1. the availability of model(s) that are trained in the domain or interest to us and/or 
@@ -142,7 +142,7 @@ For other domains such as tagging for legal entities etc., pretraining a model o
 
 In general, if we have a model that is pretrained on a domain specific corpus of interest to us with a vocabulary that is representative of all the entity types of relevance to us, then that is the ideal case - we can just use a single model without the need to ensemble multiple models. The other alternative is to choose two or more models, each strong in a subset of entities of interest to us, and ensemble them. 
 
-## Step 2. Label subset of each model's vocabulary 
+### Step 2. Label subset of each model's vocabulary 
 
 The performance of this approach relies on how well the entity vector of synthetic labels captures all the different contexts of a vocabulary term. While the bulk of the weight lifting for entity vector creation is done by the algorithmic assignment of labels to terms, the quality/richness of algorithmic assignment depends on the breadth of coverage of manually labeled seed . 
 
@@ -191,7 +191,7 @@ Few characteristics of the entity vector may be apparent from the examples above
 the entity vector for a word is essentially the factor form of a probability distribution over entity types, with a distinct tail.
 There is some level of noise in a single entity vector. However, since both the phrase structure cues and sentence structure cues are aggregations of these entity vectors, the effect of noise tends to be muted to a large degree (explained further in next section). 
 
-## Step 3a. NER prediction at an individual model level
+### Step 3a. NER prediction at an individual model level
 
 Given an input sentence, for each word/phrase in the sentence whose entity type needs to be determined, harvest model predictions (vocabulary vector words) for that word. The model predictions for computing both sentence structure cue and phrase structure cue is harvested with one invocation of the model. For instance, if we want to predict the entity type of Lou Gehrig and Parkinson's in the sentence 
 
@@ -221,13 +221,13 @@ _**Figure 5.** Steps to compute phrase and sentence structure cues. Image by Au
 
 Each model used in an ensemble, outputs a phrase structure cue and sentence structure cue for each word that is being predicted.
 
-## Step 3b. Ensemble model predictions
+### Step 3b. Ensemble model predictions
 
 Ensemble results from the models, prioritizing the predictions based on the strength of the model for a specific entity type within a sentence. The ensemble essentially chooses the output of these models based on the entities they are exclusively or non-exclusively good at predicting. When choosing a model's prediction, a factor that determines the importance of its output is, if the model is predicting entities that fall into its specific domain of strength or it is predicting entities outside the domain of its strength. This signal is of value to address the cases where a model is confidently wrong (second terminal node in Figure 2) or is not sure at all of its output (fifth terminal node in Figure 2). The percentage of dual predictions across the 11 test sets varies from 6% to 26%. The output of supervised models for these cases would be largely driven by the train set balance between sentences supporting either of these predictions, with the choice of one of them being equally likely when both are equally represented. 
 
-# Ensemble performance
+## Ensemble performance
 
-## Evaluating a self-supervised model on test set designed for supervised model
+### Evaluating a self-supervised model on test set designed for supervised model
 
 Two use cases of NER in applications are examined below, since they have a bearing on how the ensemble model performance is evaluated on popular benchmarks designed for supervised models.
 1. **Given any sentence, identify the entity types of all noun/verb phrase spans.** This is the predominant use case that is targeted to train a supervised model. The task of identifying phrase spans is baked into the model during the supervised training process along with the ability to detect entity types. The definition of a phrase span in this case is implicitly captured in the labeling of phrase spans in the train/dev set. Test set then largely contains sentences with phrase spans consistent with the definition implied in the train set. The problem however of the model learning "what a phrase span is?", implicitly from the labeled train set phrase spans, is that their labeling in the train set needs to be consistent (which is not always the case in practice as one can see from the inconsistent phrase span specifications in train set. See Figure 5a below). Also the train set driven implicit definition of phrase span limits a supervised model's capability at test time to label phrases. For instance, consider the example in figure 1 " he was diagnosed with non small cell lung cancer". If the model training was labeling only the term cancer, then we loose critical information on the type of cancer. Also adding to the complexity is the fact that the extent of a phrase span could change the entity type. In the example of cancer in figure 1, the entity type remains the same regardless of we picking cancer or non small cell lung cancer as the phrase span. However, in the sentences, again from Figure 1, "I met my New York friends at the pub", "I met my XCorp friends at the pub", if we just chose the phrases in bold, NER would yield Location and Organization. However, if we consider the phrase spans "I met my New York friends at the pub", "I met my XCorp friends at the pub", an NER model needs to tag them both as Person. In summary, the benchmark datasets (designed to evaluate supervised models) implicitly defining phrase spans in the training data poses a challenge, when the definition may not be consistent. Even more importantly, any definition of what a phrase span is, that is baked into the training set, and therefore into the supervised model, is inaccessible to a self-supervised model since it does not learn those implicitly baked rules from the train set (More examples below).
@@ -242,7 +242,7 @@ The self-supervised NER approach described in this post decouples the task of id
 
 _**Figure 5a.** Sample of labeled phrase spans from one of the dataset test set (BC2GM). In general human labeled phrase spans tend to be inconsistent with some phrases matching the full phrase span length (e.h. contiguous NN/NNP) and in other instances they tend to be smaller in length than actual phrase spans. Examples of these inconsistent phrase span labeling is present in the dataset subdirectory in the Github repository. Image by Author_
 
-## General observations on model performance 
+### General observations on model performance 
 
 These are the general observation of model performance across diverse tests with entity types that were sufficiently seeded by the manual labeling as well as entity types that were inadequately seeded by the manual labeling (continual labeling for select entity types is an ongoing process to improve model performance just as it is with a supervised model using labeled sentences). 
 - ensemble performance exceeds state-of-art in cases (3 datasets) where the labels being tested have rich entity vectors. Additionally the sentences in these test sets where model performed well, have sufficient context. Lastly for test sentences with ambiguity of entity types, the phrase and sentence structure cues in combination are sufficient to match the ground truth entity type.
@@ -258,7 +258,7 @@ _**Figure 7.** Model performance not factoring sentences with just "OTHER" tag. 
 
 The F1-scores above are computed by counting model predictions at a token level as opposed to an entity level. Also the F1-score is the average of all entities (except OTHER) as mentioned earlier. 
 
-# Performance on adversarial examples
+## Performance on adversarial examples
 
 The robust performance for the example sentences in the figure below, showcased in the recent paper examining the robustness of NER models, is a natural consequence of the use of pretrained models as is, with no further supervised learning on a labeled data set.  The adversarial attack is constructed by taking the sentence "I thank my Beijing…" and first transforming it by just replacement of select entities that are chosen out-of-distribution relative to the training set for a supervised model. In the next adversarial attack, the sentence undergoes a second transformation - some words in the sentence capturing sentence context are replaced to examine how robust models are to context level word changes. 
 
@@ -282,13 +282,13 @@ _**Figure 10** Image by Author_
 
 As an aside, the context level words for constructing the context level attack are chosen from the model predictions for a position - the very same approach used to construct the sentence structure cue. So it is perhaps no surprise that this approach is resilient to such changes in sentence structure.
 
-# What are the limitations of this approach?
+## What are the limitations of this approach?
 
 - While we can influence the model output by vocabulary  words labeling to some degree, the model predictions are inherently driven by the sentence and word structure which in turn driven by the corpus it is trained on. So it is hard if not nearly impossible to separate certain entity types from each other, if those entity types share the same sentence context and the word structures are also same. In contrast, with supervised models, we can skew the model output to a particular entity type by adding more sentences with a specific label. One could argue we could equivalently do an imbalanced seed labeling, and rig the predictions, just like imbalanced sentence labeling. It is harder, in this approach even to rig, given the output depends on both proper noun labeling and adjective labeling, and selective adjective labeling to skew model results is not easy given adjective labeling is automated to begin with. 
 - From a computation efficiency perspective, a single sentence with n phrases to be predicted requires the 2*n sentence predictions, even if done with one model invocation as a batch. In contrast, a supervised model produces output with just one sentence. There does not seem to be a workaround to this. Attempt to predict with just n + 1 sentences where n sentences are for phrase structure cues and the +1 is for all context structure cues harvested using subwords, the prediction quality deteriorates significantly. This is largely because subword labels dilutes the entity prediction, because a subword can appear in many contexts, particularly those less than 3–4 characters.
 - Model ensemble logic is inadequate and needs to be improved. The current ensemble approach at times struggles between the following choices when both the models are not in agreement (1) use only one model based on a model's strength for that entity type. In this case, if meaningful pick top two prediction that model. (2) use both models and pick the top prediction of both models. This case yields top two predictions where, in some cases, the second prediction in particular, may not make sense at all, if that prediction was influenced excessively by the phrase structure cue (the right branch paths in figure 2 above) and dominated sentence structure cue. Sentence structure cue rarely is poor unless the sentence length is too small with insufficient context or if the prediction is in a domain the model is not strong in (in which case it will be most likely weeded out with the ensemble). 
 
-# How is this different from the previous iteration?
+## How is this different from the previous iteration?
 
 One implementation of the core idea of this approach was already implemented in a NER solution published back in Feb 2020.
 The difference is in some of the crucial details of the implementation. Specifically,
@@ -296,7 +296,7 @@ The difference is in some of the crucial details of the implementation. Specific
 - Even if only a minor detail, the previous implementation did not batch the input to the model for all masked positions of a sentence, severely impacting model prediction time performance. 
 - Also ensembling of models as described above was key to solve NER in biomedical space. 
 
-# Final thoughts
+## Final thoughts
 
 Transformer architecture has become a promising candidate in the search for a general architecture that works within and across input modalities without the need for modality specific designs. For some of the tasks, any input to the  transformer based model, is represented by a fixed set of learned representations during self-supervised learning. 
 These fixed set of learned representations serve as static reference landmarks to orient the model output where the model output is nothing but those learned representations transformed by the model based on the context in which they appear in, when representing the input. This fact can be leveraged, as shown in this post, to solve certain class of tasks without the need for supervised learning.
@@ -305,9 +305,9 @@ These fixed set of learned representations serve as static reference landmarks t
 
 _Code for this approach is available [here on Github](https://github.com/ajitrajasekharan/unsupervised_NER)_
 
-# Model performance - additional details
+## Model performance - additional details
 
-## 1. BC2GM dataset
+### 1. BC2GM dataset
 This dataset exclusively tests Genes. Gene is quite well represented in the entity vectors, given it was seeded with sufficient GENE labels (2,156 human labels, 25,167 entity vectors with GENE in them for biomedical corpus, 11,369 entity vectors with GENE in them for bert-base-cased[BBC] corpus). The state-of-art model performance is in large part due to this, in addition to the fact that there are few instances of overlap of Gene with other entities when it occurs in a sentence, and when it does it is largely limited to two entity types. For instance, in the sentence, the Gene, ADIPOQ occurs in a sentence where a DRUG could occur too. However, this approach captures it in the second prediction even if not the first one (this is reflected in the higher performance numbers of "taking the match of top two predictions" run compared to "taking only the model top prediction" run in figure blow ). 
 
 > ADIPOQ  has beneficial functions in normalizing glucose and lipid metabolism in many peripheral tissues
@@ -331,7 +331,7 @@ The ordering of subtypes of GENE is not tested by any of the test sets. Notwiths
 
 _BC2GM - details of test (single prediction and two predictions) - image by Author_
 
-## 2. BC4 dataset
+### 2. BC4 dataset
 
 This dataset exclusively tests chemicals . Chemicals is quite well represented in the entity vectors, given it was seeded with sufficient labels spanning 12 subtypes (6,265 human labels, 167,908 entity vectors with drug type/subtypes in them for biomedical corpus, 71,020 entity vectors with drug type/subtypes in them for bert-base-cased[BBC] corpus)
 DRUG, CHEMICAL_SUBSTANCE, HAZARDOUS_OR_POISONOUS_SUBSTANCE, ESTABLISHED_PHARMACOLOGIC_CLASS, CHEMICAL_CLASS, VITAMIN, LAB_PROCEDURE, SURGICAL_AND_MEDICAL_PROCEDURES, DIAGNOSTIC_PROCEDURE, LAB_TEST_COMPONENT, STUDY, DRUG_ADJECTIVE
@@ -346,7 +346,7 @@ The complete set of labeled false positives that in reality are not false positi
 
 _BC4 - details of test (single prediction and two predictions) - image by Author_
 
-## 3. BC5CDR-chem dataset
+### 3. BC5CDR-chem dataset
 
 This dataset test chemicals just like BC4 dataset. The same observations about BC4 applies to this dataset too including the model drop on supposed false positives on sentences with just the "OTHER" tag. As before, skipping those sentences, the model performance (figure 7) is close to and above state of art(94) for single prediction (93) and 95 (two predictions). Without skipping it is few points below below state of art 87 (single prediction) 89 (two predictions). Samples of sentences from the OTHER only sentences with phrases tagged as CHEMICAL by the model. In the first example, the model classifies chemotherapy as THERAPEUTIC_OR_PREVENTIVE_PROCEDURE. 
 Onset of hyperammonemic encephalopathy varied from 0 . 5 to 5 days ( mean : 2 . 6 + / - 1 . 3 days ) after the initiation of chemotherapy .
@@ -356,7 +356,7 @@ Cells were treated for 0 - 24 h with each compound ( 0 - 200 microM ) .
 
 _BC5CDR-chem - details of test (single prediction and two predictions) - image by Author_
 
-## 4. BC5CDR-Disease dataset
+### 4. BC5CDR-Disease dataset
 
 This dataset exclusively tests diseases . Disease is quite also well represented in the entity vectors, given it was seeded with sufficient labels spanning 4 subtypes (3,206 human labels, 56,732 entity vectors with disease type/subtypes in them for biomedical corpus, 29,300 entity vectors with disease type/subtypes in them for bert-base-cased[BBC] corpus)
 DISEASE, MENTAL_OR_BEHAVIORAL_DYSFUNCTION, CONGENITAL_ABNORMALITY, CELL_OR_MOLECULAR_DYSFUNCTION DISEASE_ADJECTIVE
@@ -366,7 +366,7 @@ While this model already performs close to and exceeds state of art as is, 87/89
 
 _BC5CDR-Disease - details of test (single prediction and two predictions) - image by Author_
 
-## 5. JNLPBA dataset
+### 5. JNLPBA dataset
 
 This dataset test GENE, and RNA,DNA, Cell, Cell types which are grouped into the entity category BODY_PART_OR_ORGAN_COMPONENT with the following subtypes 
 BODY_LOCATION_OR_REGION, BODY_SUBSTANCE/CELL, CELL_LINE, CELL_COMPONENT, BIO_MOLECULE, METABOLITE, HORMONE, BODY_ADJECTIVE.
@@ -378,7 +378,7 @@ While this model also already performs close exceeds state of art as is, 84/90 v
 
 _JNLPBA - test set details (single prediction and two predictions). All the entity types in the test set are mapped to B/I tags without qualifiers. Hence the absence of a breakup - all are clubbed under the synthetic label "GENE". - image by Author_
 
-## 6. NCBI-disease dataset
+### 6. NCBI-disease dataset
 
 This dataset exclusively tests diseases like the BC5CDR-Disease dataset . The same observations apply to this dataset too. 
 As with BC5CDR disease, while this model already performs close to and exceeds state of art as is, 84/87 vs 89.71 , it significantly exceeds state of art when the model predictions in just "OTHER" sentences are not considered. The model performance bumps up to 94 (single prediction and 96 (two predictions).
@@ -388,7 +388,7 @@ As with BC5CDR disease, while this model already performs close to and exceeds s
 _NCBI-disease - details of test (single prediction and two predictions) - image by Author_
 
 
-## 7. CoNLL++ dataset 
+### 7. CoNLL++ dataset 
 
 This data set tests entity types relevant for PHI use case - Person, Location, Organization. Organization has additional subtypes EDU, GOV, UNIV. 
 Label support for these entity types
@@ -407,7 +407,7 @@ _CoNLL++ details of test 1 of 2 (single prediction). Image by Author_
 
 _CoNLL++ details of test 2 of 2 (two predictions). Image by Author_
 
-## 8. Linnaeus dataset
+### 8. Linnaeus dataset
 
 This data set test species. This entity type has 4 subtypes SPECIES, BACTERIUM, VIRUS, BIO_ADJECTIVE. This category has relative lower human labeling compared to the entity types above. However these see labels are magnified by entity vectors to yield vectors on par with the types above.
 (959 human labels, 33,665 entity vectors with disease type/subtypes in them for biomedical corpus, 18,612 entity vectors with disease type/subtypes in them for bert-base-cased[BBC] corpus)
@@ -417,7 +417,7 @@ While model performance already xceeds state of art as is, 92/96 vs 87, it get a
 
 _Linnaeus - details of test(single prediction and two predictions) - image by Author_
 
-## 9. S800 dataset
+### 9. S800 dataset
 
 This data set also test species like Linnaeus dataset and the same observations apply. 
 
@@ -425,7 +425,7 @@ This data set also test species like Linnaeus dataset and the same observations 
 
 _S800 - details of test (single prediction and two predictions) - image by Author_
 
-## 10. WNUT16 dataset
+### 10. WNUT16 dataset
 
 The model performance on this dataset is the lowest 35/59 notwithstanding it outperforms the state-of-art(58)  with the two prediction evaluation. Some observations on the reasons for poor model performance.
 sentence structures are distinct in this data sets. These are short tweets often with very little context in addition to words that have unique structures. The performance could potentially improve if pretraining includes these unique sentence and word structures.
@@ -440,7 +440,7 @@ _WNUT16 - details of test 1 of 1 (single prediction). Image by Author_
 
 _WNUT16 - details of test 2of 2 ( two predictions). Image by Author_
 
-## 11. Custom dataset (creation in progress)
+### 11. Custom dataset (creation in progress)
 
 This is a dataset that is being created to create all entity types and subtypes in figure below
 
