@@ -359,7 +359,7 @@ _BC4 - details of test (single prediction and two predictions) - image b
 
 ### 3. BC5CDR-chem dataset
 
-This dataset test chemicals just like BC4 dataset. The same observations about BC4 applies to this dataset too including the model drop on supposed false positives on sentences with just the "OTHER" tag. As before, skipping those sentences, the model performance (figure 7) is close to and above state of art(94) for single prediction (93) and 95 (two predictions). Without skipping it is few points below below state of art 87 (single prediction) 89 (two predictions). Samples of sentences from the OTHER only sentences with phrases tagged as CHEMICAL by the model. In the first example, the model classifies chemotherapy as THERAPEUTIC_OR_PREVENTIVE_PROCEDURE. 
+This dataset tests chemicals just like BC4 dataset. The same observations about BC4 applies to this dataset too including the model drop on supposed false positives on sentences with just the "OTHER" tag. As before, skipping those sentences, the model performance (figure 7) is close to and above state of art(94) for single prediction (93) and 95 (two predictions). Without skipping it is few points below below state of art 87 (single prediction) 89 (two predictions). Samples of sentences from the OTHER only sentences with phrases tagged as CHEMICAL by the model. In the first example, the model classifies chemotherapy as THERAPEUTIC_OR_PREVENTIVE_PROCEDURE. 
  
 > Onset of hyperammonemic encephalopathy varied from 0 . 5 to 5 days ( mean : 2 . 6 + / - 1 . 3 days ) after the initiation of **chemotherapy** .
  
@@ -383,7 +383,7 @@ _BC5CDR-Disease - details of test (single prediction and two predictions) 
 
 ### 5. JNLPBA dataset
 
-This dataset test GENE, and RNA,DNA, Cell, Cell types which are grouped into the entity category BODY_PART_OR_ORGAN_COMPONENT with the following subtypes 
+This dataset tests GENE, and RNA,DNA, Cell, Cell types which are grouped into the entity category BODY_PART_OR_ORGAN_COMPONENT with the following subtypes 
  ```
 BODY_LOCATION_OR_REGION, BODY_SUBSTANCE/CELL, CELL_LINE, CELL_COMPONENT, BIO_MOLECULE, METABOLITE, HORMONE, BODY_ADJECTIVE.
  ```
@@ -426,7 +426,7 @@ _CoNLL++ details of test 2 of 2 (two predictions). Image by Author_
 
 ### 8. Linnaeus dataset
 
-This data set test species. This entity type has 4 subtypes SPECIES, BACTERIUM, VIRUS, BIO_ADJECTIVE. This category has relative lower human labeling compared to the entity types above. However these see labels are magnified by entity vectors to yield vectors on par with the types above.
+This data set tests species. This entity type has 4 subtypes SPECIES, BACTERIUM, VIRUS, BIO_ADJECTIVE. This category has relative lower human labeling compared to the entity types above. However these see labels are magnified by entity vectors to yield vectors on par with the types above.
 (959 human labels, 33,665 entity vectors with disease type/subtypes in them for biomedical corpus, 18,612 entity vectors with disease type/subtypes in them for bert-base-cased[BBC] corpus)
  
 While model performance already exceeds state of art as is, 92/96 vs 87, it get a further boost when the model predictions in just "OTHER" sentences are not considered. The model performance bumps up to 94 (single prediction and 97 (two predictions).
@@ -437,7 +437,7 @@ _Linnaeus - details of test(single prediction and two predictions) - ima
 
 ### 9. S800 dataset
 
-This data set also test species like Linnaeus dataset and the same observations apply. 
+This data set also tests species like Linnaeus dataset and the same observations apply. 
 
 <img src="http://ajitrajasekharan.github.io/images/20.png" width="600">
 
