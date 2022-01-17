@@ -307,7 +307,7 @@ These fixed set of learned representations serve as static reference landmarks t
 
 _Code for this approach is available [here on Github](https://github.com/ajitrajasekharan/unsupervised_NER)_
 
-## Model performance - additional details
+## Model performance on benchmarks - additional details
 
 ### 1. BC2GM dataset
 This dataset exclusively tests Genes. Gene is quite well represented in the entity vectors, given it was seeded with sufficient GENE labels (2,156 human labels, 25,167 entity vectors with GENE in them for biomedical corpus, 11,369 entity vectors with GENE in them for bert-base-cased[BBC] corpus). The state-of-art model performance is in large part due to this, in addition to the fact that there are few instances of overlap of Gene with other entities when it occurs in a sentence, and when it does it is largely limited to two entity types. For instance, in the sentence, the Gene, ADIPOQ occurs in a sentence where a DRUG could occur too. However, this approach captures it in the second prediction even if not the first one (this is reflected in the higher performance numbers of "taking the match of top two predictions" run compared to "taking only the model top prediction" run in figure blow ). 
