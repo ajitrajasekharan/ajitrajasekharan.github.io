@@ -2,6 +2,7 @@
 
 _For select supervised tasks with SSL models satisfying certain properties_
 
+
 <img src="http://ajitrajasekharan.github.io/images/1.png" width="600">
 
 _**Figure 1.** Named entity recognition (NER) is solved in this post with self-supervised learning (SSL) alone avoiding supervised learning. The approach described here addresses the challenges facing any NER model in real world applications. A supervised model in particular requires sufficient labeled sentences to address the cases illustrated in this figure : - (a) terms whose entity types change based on sentence context (b) sentences with very little context to determine entity type (c) terms whose casing offers cue to the entity type (d) entity type of complete or proper subsets of phrase spans (e) sentences where multiple entity types are possible in a sentence position and only the word in that position offers clue to the entity type (f) a single term that has different meanings in different contexts (g) detecting numerical elements and units (h) recognizing entity types spanning different domains, that need to be recognized for a use case(e.g. biomedical use of detecting biomedical terms as well as patient identities/health information). Image by Author_
@@ -328,7 +329,7 @@ The ordering of subtypes of GENE is not tested by any of the test sets. Notwiths
 
 <img src="http://ajitrajasekharan.github.io/images/11.png" width="600">
 
-# BC2GM - details of test (single prediction and two predictions) - image by Author
+_BC2GM - details of test (single prediction and two predictions) - image by Author_
 
 ## 2. BC4 dataset
 
@@ -343,7 +344,7 @@ The complete set of labeled false positives that in reality are not false positi
 
 <img src="http://ajitrajasekharan.github.io/images/12.png" width="600">
 
-BC4 - details of test (single prediction and two predictions) - image by Author
+_BC4 - details of test (single prediction and two predictions) - image by Author_
 
 ## 3. BC5CDR-chem dataset
 
@@ -353,7 +354,7 @@ Cells were treated for 0 - 24 h with each compound ( 0 - 200 microM ) .
 
 <img src="http://ajitrajasekharan.github.io/images/13.png" width="600">
 
-BC5CDR-chem - details of test (single prediction and two predictions) - image by Author
+_BC5CDR-chem - details of test (single prediction and two predictions) - image by Author_
 
 ## 4. BC5CDR-Disease dataset
 
@@ -363,7 +364,7 @@ While this model already performs close to and exceeds state of art as is, 87/89
 
 <img src="http://ajitrajasekharan.github.io/images/14.png" width="600">
 
-BC5CDR-Disease - details of test (single prediction and two predictions) - image by Author
+_BC5CDR-Disease - details of test (single prediction and two predictions) - image by Author_
 
 ## 5. JNLPBA dataset
 
@@ -375,7 +376,7 @@ While this model also already performs close exceeds state of art as is, 84/90 v
 
 <img src="http://ajitrajasekharan.github.io/images/15.png" width="600">
 
-JNLPBA - test set details (single prediction and two predictions). All the entity types in the test set are mapped to B/I tags without qualifiers. Hence the absence of a breakup - all are clubbed under the synthetic label "GENE". - image by Author
+_JNLPBA - test set details (single prediction and two predictions). All the entity types in the test set are mapped to B/I tags without qualifiers. Hence the absence of a breakup - all are clubbed under the synthetic label "GENE". - image by Author_
 
 ## 6. NCBI-disease dataset
 
@@ -384,25 +385,27 @@ As with BC5CDR disease, while this model already performs close to and exceeds s
 
 <img src="http://ajitrajasekharan.github.io/images/16.png" width="600">
 
-NCBI-disease - details of test (single prediction and two predictions) - image by Author
+_NCBI-disease - details of test (single prediction and two predictions) - image by Author_
 
 
 ## 7. CoNLL++ dataset 
 
 This data set tests entity types relevant for PHI use case - Person, Location, Organization. Organization has additional subtypes EDU, GOV, UNIV. 
 Label support for these entity types
-PERSON - (3,628 human labels, 21,741 entity vectors with disease type/subtypes in them for biomedical corpus, 25,815 entity vectors with disease type/subtypes in them for bert-base-cased[BBC] corpus)
-LOCATION  - (2,600 human labels, 23,370 entity vectors with disease type/subtypes in them for biomedical corpus, 23,652 entity vectors with disease type/subtypes in them for bert-base-cased[BBC] corpus)
-ORGANIZATION  - (2,664 human labels, 46,090 entity vectors with disease type/subtypes in them for biomedical corpus, 34,911 entity vectors with disease type/subtypes in them for bert-base-cased[BBC] corpus)
+
+1. PERSON - (3,628 human labels, 21,741 entity vectors with disease type/subtypes in them for biomedical corpus, 25,815 entity vectors with disease type/subtypes in them for bert-base-cased[BBC] corpus)
+2. LOCATION  - (2,600 human labels, 23,370 entity vectors with disease type/subtypes in them for biomedical corpus, 23,652 entity vectors with disease type/subtypes in them for bert-base-cased[BBC] corpus)
+3. ORGANIZATION  - (2,664 human labels, 46,090 entity vectors with disease type/subtypes in them for biomedical corpus, 34,911 entity vectors with disease type/subtypes in them for bert-base-cased[BBC] corpus)
+4. 
 The poor performance across the board for all entity types relative to state of art and the the abysmal performance on ORGANIZATION is due to the following factors. The sentences in the corpus are predominantly from sports team and scores, where organization and location could equally apply to a sports team , given the sparse sentence context. Same with Person and location. Supervised model perform extremely well given the training skews them to pick a particular entity type, which is the reason for the high scores in the test set. A takeaway from this is that this approach cannot do as well as supervised model on a test set, where the training set skews the results towards a particular type in cases of ambiguity. 
 
 <img src="http://ajitrajasekharan.github.io/images/17.png" width="600">
 
-CoNLL++ details of test 1 of 2 (single prediction). Image by Author
+_CoNLL++ details of test 1 of 2 (single prediction). Image by Author_
 
 <img src="http://ajitrajasekharan.github.io/images/18.png" width="600">
 
-CoNLL++ details of test 2 of 2 (two predictions). Image by Author
+_CoNLL++ details of test 2 of 2 (two predictions). Image by Author_
 
 ## 8. Linnaeus dataset
 
@@ -412,7 +415,7 @@ While model performance already xceeds state of art as is, 92/96 vs 87, it get a
 
 <img src="http://ajitrajasekharan.github.io/images/19.png" width="600">
 
-Linnaeus - details of test(single prediction and two predictions) - image by Author
+_Linnaeus - details of test(single prediction and two predictions) - image by Author_
 
 ## 9. S800 dataset
 
@@ -420,7 +423,7 @@ This data set also test species like Linnaeus dataset and the same observations 
 
 <img src="http://ajitrajasekharan.github.io/images/20.png" width="600">
 
-S800 - details of test (single prediction and two predictions) - image by Author
+_S800 - details of test (single prediction and two predictions) - image by Author_
 
 ## 10. WNUT16 dataset
 
@@ -431,11 +434,11 @@ One point note is the model performance remains the same even ignoring the sente
 
 <img src="http://ajitrajasekharan.github.io/images/21.png" width="600">
 
-WNUT16 - details of test 1 of 1 (single prediction). Image by Author
+_WNUT16 - details of test 1 of 1 (single prediction). Image by Author_
 
 <img src="http://ajitrajasekharan.github.io/images/22.png" width="600">
 
-WNUT16 - details of test 2of 2 ( two predictions). Image by Author
+_WNUT16 - details of test 2of 2 ( two predictions). Image by Author_
 
 ## 11. Custom dataset (creation in progress)
 
@@ -443,4 +446,4 @@ This is a dataset that is being created to create all entity types and subtypes 
 
 <img src="http://ajitrajasekharan.github.io/images/23.png" width="600">
 
-Custom data set being created to test all entity types and subtypes in this figure. Image by Author
+_Custom data set being created to test all entity types and subtypes in this figure. Image by Author_
