@@ -285,7 +285,7 @@ We could expand the adversarial input beyond the two attacks described in the pa
 
 _**Figure 10** Model predictions for the expanded adversarial examples remains constant. These are expanded examples from the ones in the [paper](https://arxiv.org/pdf/2109.05620.pdf) .   Image by Author_
 
-_As an aside, the context level words for constructing the context level attack are chosen from the model predictions for a position - the very same approach used to construct the sentence structure cue. So it is perhaps no surprise that this approach is resilient to such changes in sentence structure._
+_As an aside, the context level words for constructing the context level attack, described in the [paper](https://arxiv.org/pdf/2109.05620.pdf) are chosen from the model predictions for a position - the very same approach used in this post, to construct the sentence structure cue. So it is perhaps no surprise that this approach is resilient to such changes in sentence structure._
 
 ## What are the limitations of this approach?
 
