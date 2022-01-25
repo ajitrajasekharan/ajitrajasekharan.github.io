@@ -310,7 +310,7 @@ These fixed sets of learned representations serve as static reference landmarks 
 
 _Code for this approach is available [here on Github](https://github.com/ajitrajasekharan/unsupervised_NER)_
 
-_This article was also published in [Towards Data Science](https://towardsdatascience.com/ssl-could-avoid-supervised-learning-fd049a27cd1b)
+_This article was also published in [Towards Data Science](https://towardsdatascience.com/ssl-could-avoid-supervised-learning-fd049a27cd1b)_
 
 ## Model performance on benchmarks - additional details
 
