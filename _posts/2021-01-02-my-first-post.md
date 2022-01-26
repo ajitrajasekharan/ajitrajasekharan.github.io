@@ -308,7 +308,7 @@ These fixed sets of learned representations serve as static reference landmarks 
 
 ---
 
-_Model predictions for phrase structure cue harvested from biomedical model can be [tested here](https://huggingface.co/ajitrajasekharan/biomedical). Note Huggingface hosted predictions do not include [CLS] predictions which are in practice just as useful as model predictions for the masked position_
+_Model predictions for sentence structure cue harvested from biomedical model can be [tested here](https://huggingface.co/ajitrajasekharan/biomedical). Note Huggingface hosted predictions do not include [CLS] predictions which are in practice just as useful as model predictions for the masked position_
 
 _Code for this approach is available [here on Github](https://github.com/ajitrajasekharan/unsupervised_NER)_
 
