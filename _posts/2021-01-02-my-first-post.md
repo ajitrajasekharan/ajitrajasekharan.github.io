@@ -47,6 +47,7 @@ The solution described here while similar in spirit to the NER solution publishe
 The performance was tested on 11 datasets. It performed better than the current state-of-art on 3 of them, close to state of art on 4, poorly on 3 datasets (the eleventh is a custom dataset in the process of being created to test all 69 entities). These results are examined in the model performance section below. In addition model robustness to adversarial input is also discussed below. 
 
 _Code for this approach is available [here on Github](https://github.com/ajitrajasekharan/unsupervised_NER)_
+
 _App to examine BERT models used to perform NER [is available on Hugging Face](https://huggingface.co/spaces/ajitrajasekharan/Qualitative-pretrained-model-evaluation)_
 
 ## An underlying challenge for any NER model 
