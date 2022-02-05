@@ -48,7 +48,7 @@ The performance was tested on 11 datasets. It performed better than the current 
 
 _Code for this approach is available [here on Github](https://github.com/ajitrajasekharan/unsupervised_NER)_
 
-_[Hugging Face Spaces App to try this approach](https://huggingface.co/spaces/ajitrajasekharan/self-supervised-ner)_
+_[Hugging Face Spaces App to try this approach](https://huggingface.co/spaces/ajitrajasekharan/self-supervised-ner-biomedical)_
 
 _[Hugging Face Spaces app to examine BERT models](https://huggingface.co/spaces/ajitrajasekharan/Qualitative-pretrained-model-evaluation)_
 
@@ -312,7 +312,7 @@ These fixed sets of learned representations serve as static reference landmarks 
 
 ---
 
-_[Hugging Face Spaces App to try this approach](https://huggingface.co/spaces/ajitrajasekharan/self-supervised-ner)_
+_[Hugging Face Spaces App to try this approach](https://huggingface.co/spaces/ajitrajasekharan/self-supervised-ner-biomedical)_
 
 _[Hugging Face Spaces app to examine BERT models](https://huggingface.co/spaces/ajitrajasekharan/Qualitative-pretrained-model-evaluation) Model predictions for both phrase and sentence sentence structure cues, as well as [CLS] predictions can be examined_
 
