@@ -48,6 +48,8 @@ The performance was tested on 11 datasets. It performed better than the current 
 
 _Code for this approach is available [here on Github](https://github.com/ajitrajasekharan/unsupervised_NER)_
 
+_App to try this approach  [is available on Hugging Face](https://huggingface.co/spaces/ajitrajasekharan/self-supervised-ner)_
+
 _App to examine BERT models used to perform NER [is available on Hugging Face](https://huggingface.co/spaces/ajitrajasekharan/Qualitative-pretrained-model-evaluation)_
 
 ## An underlying challenge for any NER model 
@@ -309,6 +311,8 @@ Transformer architecture has become a promising candidate in the [search for a g
 These fixed sets of learned representations serve as static reference landmarks to orient the model output where the model output is nothing but those learned representations transformed by the model based on the context in which they appear when representing the input. This fact can be leveraged, as shown in this post, to solve a certain class of tasks without the need for supervised learning.
 
 ---
+
+_App to try this approach  [is available on Hugging Face](https://huggingface.co/spaces/ajitrajasekharan/self-supervised-ner)_
 
 _Model predictions for both phrase and sentence sentence structure cues, as well as [CLS] predictions can be [tested here](https://huggingface.co/spaces/ajitrajasekharan/Qualitative-pretrained-model-evaluation)_
 
