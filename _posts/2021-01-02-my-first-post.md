@@ -48,9 +48,9 @@ The performance was tested on 11 datasets. It performed better than the current 
 
 _Code for this approach is available [here on Github](https://github.com/ajitrajasekharan/unsupervised_NER)_
 
-_App to try this approach  [is available on Hugging Face](https://huggingface.co/spaces/ajitrajasekharan/self-supervised-ner)_
+_[Hugging Face Spaces App to try this approach](https://huggingface.co/spaces/ajitrajasekharan/self-supervised-ner)_
 
-_App to examine BERT models used to perform NER [is available on Hugging Face](https://huggingface.co/spaces/ajitrajasekharan/Qualitative-pretrained-model-evaluation)_
+_[Hugging Face Spaces app to examine BERT models](https://huggingface.co/spaces/ajitrajasekharan/Qualitative-pretrained-model-evaluation)_
 
 ## An underlying challenge for any NER model 
 
@@ -312,9 +312,11 @@ These fixed sets of learned representations serve as static reference landmarks 
 
 ---
 
-_App to try this approach  [is available on Hugging Face](https://huggingface.co/spaces/ajitrajasekharan/self-supervised-ner)_
+_[Hugging Face Spaces App to try this approach](https://huggingface.co/spaces/ajitrajasekharan/self-supervised-ner)_
 
-_Model predictions for both phrase and sentence sentence structure cues, as well as [CLS] predictions can be [tested here](https://huggingface.co/spaces/ajitrajasekharan/Qualitative-pretrained-model-evaluation)_
+_[Hugging Face Spaces app to examine BERT models](https://huggingface.co/spaces/ajitrajasekharan/Qualitative-pretrained-model-evaluation) Model predictions for both phrase and sentence sentence structure cues, as well as [CLS] predictions can be examined_
+
+
 
 _Code for this approach is available [here on Github](https://github.com/ajitrajasekharan/unsupervised_NER)_
 
