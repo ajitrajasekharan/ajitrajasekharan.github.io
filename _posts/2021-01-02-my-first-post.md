@@ -194,6 +194,10 @@ Few characteristics of the entity vector may be apparent from the examples above
 - the entity vector for a word is essentially the factor form of a probability distribution over entity types, with a distinct tail.
 - There is some level of noise in a single entity vector. However, since both the _phrase structure cue_ and _sentence structure cue_ are aggregations of these entity vectors, the effect of noise tends to be muted to a large degree (explained further in the next section). 
 
+<img src="http://ajitrajasekharan.github.io/images/4b.png" width="600">
+
+_**Figure 4b.** Label maginificaiton of two models. The combination of human and algorithmically labeled seed is magnified 23 to 28 times by the approach described above. The performance of this approach relies on this magnification. Image by Author_
+
 ### Step 3a. NER prediction at an individual model level
 
 Given an input sentence, for each word/phrase in the sentence whose entity type needs to be determined, harvest model predictions (vocabulary vector words) for that word. The model predictions for computing both sentence structure cue and phrase structure cue are harvested with one invocation of the model. For instance, if we want to predict the entity type of _Lou Gehrig_ and _Parkinson's_ in the sentence 
