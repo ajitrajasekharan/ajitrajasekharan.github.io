@@ -196,7 +196,7 @@ Few characteristics of the entity vector may be apparent from the examples above
 
 <img src="http://ajitrajasekharan.github.io/images/4b.png" width="600">
 
-_**Figure 4b.** Label maginificaiton of two models. The combination of human and algorithmically labeled seed is magnified 23 to 28 times by the approach described above. The performance of this approach relies on this magnification. Image by Author_
+_**Figure 4b.** Label magnification of two models. The combination of human and algorithmically labeled seed is magnified 23 to 28 times by the approach described above. The performance of this approach relies on this magnification. Image by Author_
 
 ### Step 3a. NER prediction at an individual model level
 
