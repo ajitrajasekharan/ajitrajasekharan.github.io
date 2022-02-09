@@ -9,7 +9,7 @@ _**Figure 1.** Named entity recognition (NER) is solved in this post with self-s
 
 ##  **TL;DR**
 
-Self-supervised learning (SSL) could be used to avoid supervised learning for some tasks leveraging self-supervised models like BERT, as is, without fine-tuning (supervision). For instance, this post describes an approach to perform named-entity recognition without fine-tuning a model on sentences. Instead, a small subset of BERT's learned vocabulary vectors are manually labeled and the labels magnified over 25 times with clustering. This magnified set is used to perform NER using BERT's fill mask capability. The approach is used to label 69 entity types that fall into 17 broad entity groups spanning two domains - biomedical (disease, drug, genes, etc. ) and patient information (person, location, organization, etc.).
+Self-supervised learning (SSL) could be used to avoid supervised learning for some tasks leveraging self-supervised models like BERT, as is, without fine-tuning (supervision). For instance, this post describes an approach to perform named-entity recognition without fine-tuning a model on sentences. Instead, a small subset of BERT's learned vocabulary vectors are manually labeled and magnified over 25 times with clustering in vocabulary vector space. This magnified set is used to perform NER using BERT's fill mask capability. The approach is used to label 69 entity types that fall into 17 broad entity groups spanning two domains - biomedical (disease, drug, genes, etc. ) and patient information (person, location, organization, etc.).
 
 ##  **Introduction**
 
