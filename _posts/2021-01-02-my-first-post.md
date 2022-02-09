@@ -9,13 +9,13 @@ _**Figure 1.** Named entity recognition (NER) is solved in this post with self-s
 
 ##  **TL;DR**
 
-Self-supervised learning (SSL) could be used to avoid supervised learning for some tasks leveraging self-supervised models like BERT as is without fine-tuning (supervision). This post describes a method to solve named-entity recognition without fine tuning a model on sentences. Instead, a small subset of BERT's learned vocabulary is manually labeled, magnified over 25 times using a BERT model, and used to perform NER using BERT's fill mask capability. The approach is used to label 69 entity types that fall into 17 broad entity groups.
+Self-supervised learning (SSL) could be used to avoid supervised learning for some tasks leveraging self-supervised models like BERT, as is, without fine-tuning (supervision). For instance, this post describes an approach to perform named-entity recognition without fine-tuning a model on sentences. Instead, a small subset of BERT's learned vocabulary is manually labeled, magnified over 25 times using a BERT model, and used to perform NER using BERT's fill mask capability. The approach is used to label 69 entity types that fall into 17 broad entity groups spanning two domains - biomedical (disease, drug, genes, etc. ) and patient information (person, location, organization, etc.).
 
 ##  **Introduction**
 
 Self-supervised learning (SSL) is increasingly used to solve language and [vision tasks](https://arxiv.org/pdf/2104.14294.pdf) that are traditionally solved with supervised learning.
 
-Supervised learning has been the predominant approach to date in state-of-art approaches for ascribing labels to either whole or parts of an input. The labels in many cases are synthetic in nature - that is they are extraneous to the input and this necessitates training a model on (input, label) pairs to learn the mapping from input to the synthetic label. Examples of this in NLP are, ascribing labels like noun, verb, etc. to words in a sentence (POS tagging), ascribing a label that describes the type of relationship between two phrases in a sentence (relation extraction) or ascribing a label to a sentence (e.g. sentiment analysis - positive, negative, neutral, etc.). 
+SSL has been the predominant approach to date in state-of-art approaches for ascribing labels to either whole or parts of an input. The labels in many cases are synthetic in nature - that is they are extraneous to the input and this necessitates training a model on (input, label) pairs to learn the mapping from input to the synthetic label. Examples of this in NLP are, ascribing labels like noun, verb, etc. to words in a sentence (POS tagging), ascribing a label that describes the type of relationship between two phrases in a sentence (relation extraction) or ascribing a label to a sentence (e.g. sentiment analysis - positive, negative, neutral, etc.). 
 
 SSL could be leveraged to avoid supervised learning for certain labeling tasks if an SSL model has the following properties
 
