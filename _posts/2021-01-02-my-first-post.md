@@ -126,7 +126,7 @@ These two characteristics of a pretrained BERT model are leveraged to do NER wit
 
 <img src="http://ajitrajasekharan.github.io/images/3.png" width="600">
 
-_**Figure 3.** Gist of this approach - described in the bullet points below. Image by Author_
+_**Figure 3.** Gist of this approach - described in the bullet points below. The entity vectors are representative samples. The true counts of eGFR and EGFR are ~20 times more than shown in the figure. Image by Author_
 
 - A subset of terms in a BERT model's vocabulary is manually labeled with the entity types of interest to us. This manual labeling serves as a bootstrap seed to harvest interpretable vectors. An example of this is step 1 in Figure 3 above - labeling of a term like _egfr_ disregarding case.
 
