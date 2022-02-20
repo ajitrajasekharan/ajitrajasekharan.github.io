@@ -9,7 +9,7 @@ _**Figure 1.** Named entity recognition (NER) is solved in this post with self-s
 
 ##  **TL;DR**
 
-Self-supervised learning (SSL) could be used to avoid supervised learning for some tasks leveraging self-supervised models like BERT, as is, without fine-tuning (supervision). For instance, this post describes an approach to perform named-entity recognition without fine-tuning a model on sentences. Instead, a small subset of BERT's learned vocabulary is manually labeled and the labeled subset is magnified over 25 times with clustering in vocabulary vector space. This magnified set is used to perform NER using BERT's fill mask capability. The approach is used to label 69 entity types that fall into 17 broad entity groups spanning two domains - biomedical (disease, drug, genes, etc. ) and patient information (person, location, organization, etc.).
+Self-supervised learning (SSL) could be used to avoid supervised learning for some tasks leveraging self-supervised models like BERT, as is, without fine-tuning (supervision). For instance, this post describes an approach to perform named-entity recognition without fine-tuning a model on sentences. Instead, a small subset of BERT's learned vocabulary is manually labeled and the labeled subset is magnified over 1k-30k times with clustering in vocabulary vector space. This magnified set is used to perform NER using BERT's fill mask capability. The approach is used to label 69 entity types that fall into 17 broad entity groups spanning two domains - biomedical (disease, drug, genes, etc. ) and patient information (person, location, organization, etc.).
 
 ##  **Introduction**
 
@@ -171,7 +171,7 @@ The process to label all three categories of words above is as follows. It is co
 
 <img src="http://ajitrajasekharan.github.io/images/4.png" width="600">
 
-_**Figure 4.** Schematic of the manual labeling process aided by clustering. We start by clustering the vocabulary vectors along the line shown in Figure 4 below. The centers of these clusters, (approximately 4,000) are manually labeled. Given the overlap between clusters, a term falls into multiple clusters. It inherits the labeling from the nearby labeled center terms thereby both scaling the number of labeled terms by a factor of 25–30, as well as increasing the number of labels even for a labeled term beyond what was manually labeled. Image by Author_
+_**Figure 4.** Schematic of the manual labeling process aided by clustering. We start by clustering the vocabulary vectors along the line shown in Figure 4 below. The centers of these clusters, (approximately 4,000) are manually labeled. Given the overlap between clusters, a term falls into multiple clusters. It inherits the labeling from the nearby labeled center terms thereby both scaling the number of labeled terms by a factor of 3, as well as increasing the number of labels even for a labeled term beyond what was manually labeled. Image by Author_
 
 <img src="http://ajitrajasekharan.github.io/images/5.png" width="600">
 
@@ -198,9 +198,21 @@ Few characteristics of the entity vector may be apparent from the examples above
 - the entity vector for a word is essentially the factor form of a probability distribution over entity types, with a distinct tail.
 - There is some level of noise in a single entity vector. However, since both the _phrase structure cue_ and _sentence structure cue_ are aggregations of these entity vectors, the effect of noise tends to be muted to a large degree (explained further in the next section). 
 
-<img src="http://ajitrajasekharan.github.io/images/4b.png" width="600">
+<img src="http://ajitrajasekharan.github.io/images/bbcmag.png" width="600">
 
-_**Figure 4b.** Label magnification of two models. The combination of human and algorithmically labeled seed is magnified 23 to 28 times by the approach described above. The performance of this approach relies on this magnification. Image by Author_
+_**Figure 4b1.** Label magnification of bert-base-cased model. About 9.3k human-labeled terms are magnified 3 times to create ~29k terms. The original label count of 20k is magnified 27k times to 569 million labels. The performance of this approach relies on this magnification. Image by Author_
+
+<img src="http://ajitrajasekharan.github.io/images/bbpie.png" width="600">
+
+_**Figure 4b2.** Figure 4b2. Entity distribution in bert-base-cased model obtained with label magnification. Image by Author_
+
+<img src="http://ajitrajasekharan.github.io/images/biomag.png" width="600">
+
+_**Figure 4b3.** Figure 4b3. Label magnification of Bio model. About 9.7k human-labeled terms are magnified 3 times to create ~29k terms. The original label count of 26k is magnified 982 times to ~26 million labels. The performance of this approach relies on this magnification. Image by Author_
+
+<img src="http://ajitrajasekharan.github.io/images/biopie.png" width="600">
+
+_**Figure 4b4.** Figure 4b4. Entity distribution in bio model obtained with label magnification. Image by Author_
 
 ### Step 3a. NER prediction at an individual model level
 
