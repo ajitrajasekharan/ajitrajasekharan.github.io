@@ -202,7 +202,7 @@ Few characteristics of the entity vector may be apparent from the examples above
 
 _**Figure 4b1.** Label magnification of bert-base-cased model. About 9.3k human-labeled terms are magnified 3 times to create ~29k terms. The original label count of 20k is magnified 27k times to 569 million labels. The performance of this approach relies on this magnification. Image by Author_
 
-<img src="http://ajitrajasekharan.github.io/images/bbpie.png" width="600">
+<img src="http://ajitrajasekharan.github.io/images/bbcpie.png" width="600">
 
 _**Figure 4b2.** Figure 4b2. Entity distribution in bert-base-cased model obtained with label magnification. Image by Author_
 
