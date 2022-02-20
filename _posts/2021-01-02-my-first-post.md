@@ -9,7 +9,7 @@ _**Figure 1.** Named entity recognition (NER) is solved in this post with self-s
 
 ##  **TL;DR**
 
-Self-supervised learning (SSL) could be used to avoid supervised learning for some tasks leveraging self-supervised models like BERT, as is, without fine-tuning (supervision). For instance, this post describes an approach to perform named-entity recognition without fine-tuning a model on sentences. Instead, a small subset of BERT's learned vocabulary is manually labeled and the labeled subset is magnified over 1k-30k times with clustering in vocabulary vector space. This magnified set is used to perform NER using BERT's fill mask capability. The approach is used to label 69 entity types that fall into 17 broad entity groups spanning two domains - biomedical (disease, drug, genes, etc. ) and patient information (person, location, organization, etc.).
+Self-supervised learning (SSL) could be used to avoid supervised learning for some tasks leveraging self-supervised models like BERT, as is, without fine-tuning (supervision). For instance, this post describes an approach to perform named-entity recognition without fine-tuning a model on sentences. Instead, a small subset of BERT's learned vocabulary is manually labeled and the labeled subset strength is magnified over 1k-30k times with clustering in vocabulary vector space. This magnified set is used to perform NER using BERT's fill mask capability. The approach is used to label 69 entity types that fall into 17 broad entity groups spanning two domains - biomedical (disease, drug, genes, etc. ) and patient information (person, location, organization, etc.).
 
 ##  **Introduction**
 
@@ -200,7 +200,7 @@ Few characteristics of the entity vector may be apparent from the examples above
 
 <img src="http://ajitrajasekharan.github.io/images/bbcmag.png" width="600">
 
-_**Figure 4b1.** Label magnification of bert-base-cased model. About 9.3k human-labeled terms are magnified 3 times to create ~29k terms. The original label count of 20k is magnified 27k times to 569 million labels. The performance of this approach relies on this magnification. Image by Author_
+_**Figure 4b1.** Label magnification of bert-base-cased model. About 9.3k human-labeled terms are magnified 3 times to create ~29k terms. The original label strength of 20k is magnified 27k times to 569 million labels. The performance of this approach relies on this magnification. Image by Author_
 
 <img src="http://ajitrajasekharan.github.io/images/bbcpie.png" width="600">
 
@@ -208,7 +208,7 @@ _**Figure 4b2.** Figure 4b2. Entity distribution in bert-base-cased model obtain
 
 <img src="http://ajitrajasekharan.github.io/images/biomag.png" width="600">
 
-_**Figure 4b3.** Figure 4b3. Label magnification of Bio model. About 9.7k human-labeled terms are magnified 3 times to create ~29k terms. The original label count of 26k is magnified 982 times to ~26 million labels. The performance of this approach relies on this magnification. Image by Author_
+_**Figure 4b3.** Figure 4b3. Label magnification of Bio model. About 9.7k human-labeled terms are magnified 3 times to create ~29k terms. The original label strength of 26k is magnified 982 times to ~26 million labels. The performance of this approach relies on this magnification. Image by Author_
 
 <img src="http://ajitrajasekharan.github.io/images/biopie.png" width="600">
 
